@@ -33,7 +33,7 @@ Go 应用自身不处理环境变量的导出或配置文件的读取，环境�
 
 #### 环境变量与镜像发布
 
-Groove 脚手架集成了 `make publish` 快捷指令来打包发布镜像，如果您细心读了 Makefile 和 Dockerfile 两个文件，您会发现在构建镜像过程中将根据 `make publish` 的 `env` 参数或 `docker build` 的 `PUBLISH_MODE` 参数来制定发布环境，而在 Dockerfile 中将根据制定的环境，将 **.env.环境名称** 文件拷贝成 .env 来供应用使用。
+Groove 脚手架集成了 `make publish` 快捷指令来打包发布镜像，如果您细心读了 Makefile 和 Dockerfile 两个文件，您会发现在构建镜像过程中将根据 `make publish` 的 `env` 参数或 `docker build` 的 `PUBLISH_MODE` 参数来指定发布环境，而在 Dockerfile 中将根据指定的环境，将 **.env.环境名称** 文件拷贝成 .env 来供应用使用。
 
 所以，您可以创建出多个不同的环境变量文件，如 **.env.development**、**.env.production** 等，这样，在执行例如 `make publish version=1.0.0 env=development` 或 `make publish version=1.0.0 env=production` 时，将会分别应用到对应的环境变量文件。
 
