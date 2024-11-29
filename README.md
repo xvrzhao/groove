@@ -6,7 +6,7 @@ Groove 是一个极简的 HTTP/Cron 服务脚手架，集成了基础的 Web 开
 
 ```bash
 # 安装 Groove 命令行工具
-go install github.com/xvrzhao/groove
+go install github.com/xvrzhao/groove@latest
 
 # 创建您的 Groove 项目
 groove create my-app
