@@ -8,6 +8,8 @@
 
 Groove is a minimalist HTTP/Cron service scaffold that integrates basic Web development packages, including JWT authentication, logging, password hashing, paging queries, standardized HTTP response formats, etc. It also comes with a one-click CRUD interface generation tool suitable for agile development, making it very suitable for the development of small single backend services.
 
+[中文文档](./README-CN.md)
+
 ## Table of Contents
 
 <!-- toc -->
@@ -109,7 +111,7 @@ Groove advocates writing unit tests.
 
 ### Graceful Shutdown
 
-Although the Go application is started by the `bin/exec` script in the container, it can ensure that the Go application is the main program of the container (pid: 1) and can normally receive the `TERM`/`KILL` and other signals of the container. You can write the elegant exit logic in the code yourself.
+Although the Go application is started by the `bin/exec` script in the container, it can ensure that the Go application is the main program of the container (pid: 1) and can normally receive the `TERM`/`KILL` and other signals of the container. You can write the graceful shutdown logic in the code yourself.
 
 ## Groove Shortcuts
 
