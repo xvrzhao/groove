@@ -80,7 +80,7 @@ func runCmdCreate(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	log.Printf("Complete! New project: %s", projectPath)
+	log.Printf("Complete! Enjoy it: %s", projectPath)
 }
 
 func replaceFileStrRecursively(dir, oldStr, newStr string) error {
