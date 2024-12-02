@@ -27,14 +27,23 @@ var cmdRoot = &cobra.Command{
 
 var cmdCreate = &cobra.Command{
 	Use:     "create PROJECT_NAME",
-	Short:   "Create a new Groove project.",
+	Short:   "Create a new Groove project",
 	Example: "groove create my-app",
 	Run:     runCmdCreate,
+}
+
+var cmdVersion = &cobra.Command{
+	Use:   "version",
+	Short: "Print version",
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println(scaffoldVersion)
+	},
 }
 
 func init() {
 	cmdCreate.Flags().String("d", ".", "directory to create")
 	cmdRoot.AddCommand(cmdCreate)
+	cmdRoot.AddCommand(cmdVersion)
 }
 
 func main() {
