@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"context"
 	"fmt"
 	"io/fs"
 	"log"
@@ -13,6 +12,12 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/spf13/cobra"
+)
+
+const (
+	scaffoldRepo    = "https://github.com/xvrzhao/groove-scaffold.git"
+	scaffoldGoMod   = "github.com/xvrzhao/groove-scaffold"
+	scaffoldVersion = "v1.0.1"
 )
 
 var cmdRoot = &cobra.Command{
@@ -28,6 +33,7 @@ var cmdCreate = &cobra.Command{
 }
 
 func init() {
+	cmdCreate.Flags().String("d", ".", "directory to create")
 	cmdRoot.AddCommand(cmdCreate)
 }
 
@@ -42,24 +48,29 @@ func runCmdCreate(cmd *cobra.Command, args []string) {
 	}
 
 	projectName := args[0]
-	projectPath := fmt.Sprintf("./%s", projectName)
-
-	_, err := git.PlainCloneContext(context.TODO(), projectPath, false, &git.CloneOptions{
-		URL:      "https://github.com/xvrzhao/groove-scaffold.git",
-		Progress: os.Stdout,
-		Depth:    1,
-	})
+	dir := cmd.Flag("d").Value.String()
+	projectPath, err := filepath.Abs(filepath.Join(dir, projectName))
 	if err != nil {
-		log.Printf("failed to pull groove scaffold: %v", err)
+		log.Printf("failed to get abs path: %v", err)
 		return
 	}
 
-	if err := os.RemoveAll(projectPath + "/.git"); err != nil {
-		log.Printf("failed to remove .git dir")
+	if _, err := git.PlainClone(projectPath, false, &git.CloneOptions{
+		URL:           scaffoldRepo,
+		ReferenceName: scaffoldVersion,
+		Depth:         1,
+		Progress:      os.Stdout,
+	}); err != nil {
+		log.Printf("failed to pull groove-scaffold code: %v", err)
 		return
 	}
 
-	if err := replaceStrRecursive(projectPath, "github.com/xvrzhao/groove-scaffold", projectName); err != nil {
+	if err := os.RemoveAll(filepath.Join(projectPath, ".git")); err != nil {
+		log.Printf("failed to remove git dir: %v", err)
+		return
+	}
+
+	if err := replaceFileStrRecursively(projectPath, scaffoldGoMod, projectName); err != nil {
 		log.Printf("failed to replace module name: %v", err)
 		return
 	}
@@ -68,10 +79,12 @@ func runCmdCreate(cmd *cobra.Command, args []string) {
 		log.Printf("failed to init git: %v", err)
 		return
 	}
+
+	log.Printf("Complete! New project: %s", projectPath)
 }
 
-func replaceStrRecursive(root, oldString, newString string) error {
-	return filepath.WalkDir(root, func(path string, entry fs.DirEntry, err error) error {
+func replaceFileStrRecursively(dir, oldStr, newStr string) error {
+	return filepath.WalkDir(dir, func(path string, entry fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -80,14 +93,14 @@ func replaceStrRecursive(root, oldString, newString string) error {
 			return nil
 		}
 
-		if err := replaceStrInFile(path, oldString, newString); err != nil {
+		if err := replaceFileStr(path, oldStr, newStr); err != nil {
 			return fmt.Errorf("failed to process file %s: %w", path, err)
 		}
 		return nil
 	})
 }
 
-func replaceStrInFile(filePath, oldString, newString string) error {
+func replaceFileStr(filePath, oldStr, newStr string) error {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return err
@@ -99,16 +112,16 @@ func replaceStrInFile(filePath, oldString, newString string) error {
 	changed := false
 	for scanner.Scan() {
 		line := scanner.Text()
-		if strings.Contains(line, oldString) {
-			line = strings.ReplaceAll(line, oldString, newString)
+		if err := scanner.Err(); err != nil {
+			return err
+		}
+
+		if strings.Contains(line, oldStr) {
+			line = strings.ReplaceAll(line, oldStr, newStr)
 			changed = true
 		}
 		buffer.WriteString(line)
 		buffer.WriteString("\n")
-	}
-
-	if err := scanner.Err(); err != nil {
-		return err
 	}
 
 	if !changed {
