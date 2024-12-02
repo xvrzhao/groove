@@ -1,4 +1,4 @@
-<p align="center"><img src="./logo.gif" /></p>
+<p align="center"><img width="400" src="./logo.gif" /></p>
 
 # Groove
 
