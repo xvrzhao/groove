@@ -1,4 +1,7 @@
+<p align="center"><img src="./logo.gif" /></p>
+
 # Groove
+
 [![GitHub issues](https://img.shields.io/github/issues/xvrzhao/groove)](https://github.com/xvrzhao/groove/issues)
 [![GitHub license](https://img.shields.io/github/license/xvrzhao/groove)](https://github.com/xvrzhao/groove/blob/main/LICENSE)
 
