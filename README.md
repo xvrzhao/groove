@@ -6,7 +6,7 @@
   <a href="https://github.com/xvrzhao/groove/tags"><img src="https://img.shields.io/github/v/tag/xvrzhao/groove?label=version" alt="tags"></a>
 </p>
 
-Groove is a minimalist HTTP/Cron service scaffold that integrates basic Web development packages, including JWT authentication, logging, password hashing, paging queries, standardized HTTP response formats, etc. It also comes with a one-click CRUD interface generation tool suitable for agile development, making it very suitable for the development of small single backend services.
+Groove is a minimalist HTTP/Cron service scaffold that integrates basic Web development packages, including JWT authentication, logging, password hashing, paging queries, standardized HTTP response formats, etc. It also comes with a one-click CRUD interface generation tool suitable for agile development, making it very suitable for the development of small singleton backend services.
 
 [中文文档](./README-CN.md)
 
@@ -81,7 +81,7 @@ You can refer to the `db/conn.go` file. The `db` package only provides the `Clie
 
 ### Image and Version
 
-Groove is composed of two applications, HTTP and Cron. Since Groove is a single project, changes to the public package will affect both applications. Therefore, Groove believes that the two program entries should keep the same version number. The image building process will compile both entries into the same image. When deploying, you only need to use different startup instructions for the same image (`CMD` of `Dockerfile`, or `command` of `docker-compose`).
+Groove is composed of two applications, HTTP and Cron. Since Groove is a singleton project, changes to the public package will affect both applications. Therefore, Groove believes that the two program entries should keep the same version number. The image building process will compile both entries into the same image. When deploying, you only need to use different startup instructions for the same image (`CMD` of `Dockerfile`, or `command` of `docker-compose`).
 
 ### HTTP Request Lifecycle
 
