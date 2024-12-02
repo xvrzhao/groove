@@ -1,4 +1,6 @@
 # Groove
+[![GitHub issues](https://img.shields.io/github/issues/xvrzhao/groove)](https://github.com/xvrzhao/groove/issues)
+[![GitHub license](https://img.shields.io/github/license/xvrzhao/groove)](https://github.com/xvrzhao/groove/blob/main/LICENSE)
 
 Groove 是一个极简的 HTTP/Cron 服务脚手架，集成了基础的 Web 开发 Package，包括 JWT 鉴权、日志、密码哈希、分页查询、标准化 HTTP 响应格式等，并附带适用于敏捷开发的 CRUD 接口一键生成工具，非常适合小型单体后端服务的开发。
 
