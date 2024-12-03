@@ -32,6 +32,7 @@ Groove is a minimalist HTTP/Cron service scaffold that integrates basic Web deve
 - [Groove Shortcuts](#groove-shortcuts)
   * [Launch the Groove App Locally](#launch-the-groove-app-locally)
   * [Generate CRUD code](#generate-crud-code)
+  * [Code Formatting and Static Check](#code-formatting-and-static-check)
   * [Publish Image](#publish-image)
 
 <!-- tocstop -->
@@ -130,7 +131,13 @@ make run-cron
 # Parameter description:
 #   table: database table name
 #   model: model name to generate
-make api table=x_persons model=Person
+make crud table=x_persons model=Person
+```
+
+### Code Formatting and Static Check
+
+```bash
+make code
 ```
 
 ### Publish Image

@@ -30,6 +30,7 @@ Groove 是一个极简的 HTTP/Cron 服务脚手架，集成了基础的 Web 开
 - [Groove 快捷指令](#groove-%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4)
   * [本地启动 Groove App](#%E6%9C%AC%E5%9C%B0%E5%90%AF%E5%8A%A8-groove-app)
   * [一键生成 CRUD](#%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90-crud)
+  * [代码格式化和静态检查](#%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%92%8C%E9%9D%99%E6%80%81%E6%A3%80%E6%9F%A5)
   * [发布镜像](#%E5%8F%91%E5%B8%83%E9%95%9C%E5%83%8F)
 
 <!-- tocstop -->
@@ -129,6 +130,12 @@ make run-cron
 #   table: 数据表名称
 #   model: 生成的 Model 的名称
 make api table=x_persons model=Person
+```
+
+### 代码格式化和静态检查
+
+```bash
+make code
 ```
 
 ### 发布镜像
