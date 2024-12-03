@@ -1,4 +1,4 @@
-<p align="center"><img src="./LOGO.png" /></p>
+<p align="center"><img width="530px" src="./LOGO.png" /></p>
 
 <p align="center">
   <a href="https://github.com/xvrzhao/groove/issues"><img src="https://img.shields.io/github/issues/xvrzhao/groove" alt="issues"></a>
