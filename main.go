@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"fmt"
 	"io/fs"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -22,7 +21,7 @@ const (
 
 var cmdRoot = &cobra.Command{
 	Use:   "groove",
-	Short: "Groove is a HTTP/Cron project scaffold.",
+	Short: "Groove is a HTTP/Cron project scaffold for singleton.",
 }
 
 var cmdCreate = &cobra.Command{
@@ -52,7 +51,7 @@ func main() {
 
 func runCmdCreate(cmd *cobra.Command, args []string) {
 	if len(args) <= 0 {
-		log.Print("project name is not given")
+		fmt.Println("project name is not given")
 		return
 	}
 
@@ -60,7 +59,7 @@ func runCmdCreate(cmd *cobra.Command, args []string) {
 	dir := cmd.Flag("d").Value.String()
 	projectPath, err := filepath.Abs(filepath.Join(dir, projectName))
 	if err != nil {
-		log.Printf("failed to get abs path: %v", err)
+		fmt.Printf("failed to get abs path: %v\n", err)
 		return
 	}
 
@@ -70,26 +69,26 @@ func runCmdCreate(cmd *cobra.Command, args []string) {
 		Depth:         1,
 		Progress:      os.Stdout,
 	}); err != nil {
-		log.Printf("failed to pull groove-scaffold code: %v", err)
+		fmt.Printf("failed to pull groove-scaffold code: %v\n", err)
 		return
 	}
 
 	if err := os.RemoveAll(filepath.Join(projectPath, ".git")); err != nil {
-		log.Printf("failed to remove git dir: %v", err)
+		fmt.Printf("failed to remove git dir: %v\n", err)
 		return
 	}
 
 	if err := replaceFileStrRecursively(projectPath, scaffoldGoMod, projectName); err != nil {
-		log.Printf("failed to replace module name: %v", err)
+		fmt.Printf("failed to replace module name: %v\n", err)
 		return
 	}
 
 	if _, err := git.PlainInit(projectPath, false); err != nil {
-		log.Printf("failed to init git: %v", err)
+		fmt.Printf("failed to init git: %v\n", err)
 		return
 	}
 
-	log.Printf("Complete! Enjoy it: %s", projectPath)
+	fmt.Printf("Complete! Enjoy it: %s\n", projectPath)
 }
 
 func replaceFileStrRecursively(dir, oldStr, newStr string) error {
