@@ -16,7 +16,7 @@ import (
 const (
 	scaffoldRepo    = "https://github.com/xvrzhao/groove-scaffold.git"
 	scaffoldGoMod   = "github.com/xvrzhao/groove-scaffold"
-	scaffoldVersion = "v1.1.0"
+	scaffoldVersion = "v1.2.0"
 )
 
 var cmdRoot = &cobra.Command{
